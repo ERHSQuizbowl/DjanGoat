@@ -27,4 +27,9 @@ def new_user_message(request, user_id):
 
 @require_http_methods(["GET", "PATCH", "PUT", "DELETE"])
 def user_message(request, user_id, message_id):
-    return HttpResponse("show user message" + str(user_id) + str(message_id))
+    current_user = User(email="tests@example.com", first_name="Tester", last_name="McTestsalot")
+    message = Message(message="This is a test message.")
+    return render(request, "users/messages/show.html", {
+        'current_user': current_user,
+        'message': message
+    })

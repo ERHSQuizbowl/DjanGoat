@@ -41,8 +41,8 @@
                                         <td>{{ message.created_at }}</td>
                                         <td>{{ message.message }}</td>
                                         <td>
-                                            <%= link_to "Details", user_message_path(:id => message.id), {:class => "btn btn-info pull-left"}%>
-                                            <%= link_to "Delete", user_message_path(:id => message.id), {:method => 'delete', :class => "btn btn-danger pull-left"}%>
+                                            <a href="/users/{{ current_user.id }}/messages/{{ message.id }}" class="btn btn-info pull-left">Details</a>
+                                            <a href="/users/{{ current_user.id }}/messages/{{ message.id }}" class="btn btn-danger pull-left">Delete</a>
                                         </td>
                                     {% endfor %}
                                 </tr>
