@@ -26,9 +26,7 @@ class User(models.Model):
     is_admin = models.BooleanField()
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    user_id = models.PositiveIntegerField(
-        validators=[MaxValueValidator(MAX_USER_ID_VALUE)]
-    )
+    user_id = models.IntegerField(unique=True)
     created_at = models.DateTimeField()
     updated_at = models.DateTimeField()
     auth_token = models.CharField(max_length=255)
@@ -115,13 +113,7 @@ class User(models.Model):
     def assign_user_id(self):
         if self.user_id != None:
             return
-        # User with highest id
-        user = User.objects.order_by("-user_id").first()
-        if user is not None:
-            # Set the new user's id to be one higher
-            self.user_id = user.user_id + 1
-        else:
-            self.user_id = 1
+        self.user_id = self.id
 
     def hash_password(self):
         if self.password is not None:
