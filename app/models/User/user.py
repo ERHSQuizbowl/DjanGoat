@@ -26,7 +26,7 @@ class User(models.Model):
     is_admin = models.BooleanField()
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    user_id = models.IntegerField(unique=True)
+    user_id = models.IntegerField(validators=[MaxValueValidator(MAX_USER_ID_VALUE)], null=True)
     created_at = models.DateTimeField()
     updated_at = models.DateTimeField()
     auth_token = models.CharField(max_length=255)

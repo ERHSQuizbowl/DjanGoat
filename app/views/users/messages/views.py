@@ -26,7 +26,7 @@ def user_messages(request, _user_id):
                           created_at=timezone.now(),
                           updated_at=timezone.now())
         message.save()
-        return redirect("/users/" + str(current_user.user_id) + "/messages")
+        return redirect("/users/" + str(current_user.id) + "/messages")
     else:
 
         # On a GET simply return a list of the current user's received messages
@@ -55,4 +55,4 @@ def user_message(request, _user_id, message_id):
 
         # On a DELETE delete the message and redirect back to the list page
         message.delete()
-        return redirect("/users/" + str(current_user.user_id) + "/messages")
+        return redirect("/users/" + str(current_user.id) + "/messages")
