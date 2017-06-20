@@ -29,23 +29,25 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
                                     {% if not messages %}
-                                        <td>No messages!</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <tr>
+                                            <td>No messages!</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                     {% endif %}
                                     {% for message in messages %}
-                                        <td>{{ message.creator_name }}</td>
-                                        <td>{{ message.created_at }}</td>
-                                        <td>{{ message.message }}</td>
-                                        <td>
-                                            <a href="/users/{{ current_user.id }}/messages/{{ message.id }}" class="btn btn-info pull-left">Details</a>
-                                            <a href="/users/{{ current_user.id }}/messages/{{ message.id }}" class="btn btn-danger pull-left">Delete</a>
-                                        </td>
+                                        <tr>
+                                            <td>{{ message.creator_name }}</td>
+                                            <td>{{ message.created_at }}</td>
+                                            <td>{{ message.message }}</td>
+                                            <td>
+                                                <a href="/users/{{ current_user.id }}/messages/{{ message.id }}" class="btn btn-info pull-left">Details</a>
+                                                <a href="/users/{{ current_user.id }}/messages/{{ message.id }}" class="btn btn-danger pull-left">Delete</a>
+                                            </td>
+                                        </tr>
                                     {% endfor %}
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -84,20 +86,20 @@
                             <div class="row-fluid">
                                 <div class="span8">
                                     <form method="POST" url="/users/{{ current_user.user_id }}/messages" id="send_message">
-                                        <input type="hidden" name="creator_id" value="{{ current_user.id }}" />
+                                        {%  csrf_token %}
+                                        <input type="hidden" name="creator_id" value="{{ current_user.user_id }}" />
                                         <input type="hidden" name="read" value="0" />
                                         <div class="control-group">
                                             <label class="control-label">To:</label>
                                             <select name="receiver_id" >
-                                                <option></option>
-                                                {% for user in User.objects.all %}
+                                                {% for user in receivers %}
                                                     <option value="{{ user.user_id }}">{{ user.full_name }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">Message</label>
-                                            <textarea class="span12"></textarea>
+                                            <textarea name="message" class="span12"></textarea>
                                         </div>
                                         <div class="form-actions no-margin">
                                             <button type="submit" id="submit_button" value="submit" class="btn btn-info pull-right">Submit</button>

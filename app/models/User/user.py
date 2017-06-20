@@ -97,6 +97,8 @@ class User(models.Model):
             user=self, created_at=user_data.date_three,
             updated_at=user_data.date_four)
 
+
+
     @staticmethod
     def authenticate(input_email, input_password):
         user = User.find_by_email(input_email)
