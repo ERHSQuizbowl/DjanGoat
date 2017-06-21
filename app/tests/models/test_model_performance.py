@@ -78,9 +78,9 @@ class PerformanceModelTests(TestCase, ModelCrudTests, Pep8ModelTests):
         self.path = "app/models/WorkInfo/work_info.py"
 
     def test_reviewer_name(self):
-        reviewer = User.objects.get(user_id=self.model.reviewer.user_id)
+        reviewer = User.objects.get(id=self.model.reviewer.id)
         performance_first = Performance.objects.get(reviewer=reviewer)
-        self.assertEqual(performance_first.reviewer_name(),
-                         "Contrast Security")
+        self.assertEqual(performance_first.reviewer_name(), "Contrast Security")
+
         reviewer.delete()
         self.assertEqual(performance_first.reviewer_name(), None)

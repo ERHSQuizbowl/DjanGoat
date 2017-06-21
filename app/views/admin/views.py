@@ -44,6 +44,7 @@ def admin_delete_user(request, selected_id):
 
 @require_http_methods(["POST", "PATCH"])
 def admin_update_user(request, selected_id):
+    print "Selected ID = "+ str(selected_id)
     success = True
     try:
         user = User.objects.get(user_id=int(selected_id))

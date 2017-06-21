@@ -153,11 +153,18 @@ class AdminUpdateUserTest(TestCase, RouteTestingWithKwargs):
         self.assertEqual(response.status_code, self.responses['exists'])
 
     def test_simple_update(self):
-        response = self.client.post(reverse(self.route_name, kwargs=self.kwargs),
-                                    data={'password': 'ds', 'email': 'yo@email.com', 'password_confirmation': 'ds', 'first_name': 'Vinai'})
+        response = self.client.post(reverse(self.route_name,
+                                    kwargs=self.kwargs),
+                                    data={'password': 'ds',
+                                          'email': 'yo@email.com',
+                                          'password_confirmation': 'ds',
+                                          'first_name': 'Vinai'})
+        self.assertEquals(response.status_code, 200)
         self.assertEquals(1, len(User.objects.all()))
-        self.assertEquals("yo@email.com", User.objects.get(user_id=1).email)
-        self.assertEquals("Vinai", User.objects.get(user_id=1).first_name)
+
+        u = User.objects.first()
+        self.assertEquals("yo@email.com", User.objects.get(id=u.id).email)
+        self.assertEquals("Vinai", User.objects.get(id=u.id).first_name)
 
 
 class AdminGetAllUsersTest(TestCase, RouteTestingWithKwargs):

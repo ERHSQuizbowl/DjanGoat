@@ -84,7 +84,7 @@ class UserModelTests(TestCase, ModelCrudTests):
 
     def test_user_signals_assign_id(self):
         # User is the only user in the db, so its id should be 1
-        self.assertEqual(1, self.model.user_id)
+        self.assertEqual(1, self.model.id)
 
     def test_user_signals_generate_token(self):
         """
